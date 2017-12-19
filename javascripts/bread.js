@@ -3,9 +3,10 @@
 let breadPrices = {
     "white": 0.99,
     "wheat": 1.25,
-    "Rye": 1.50
+    "Rye": 1.50,
+    "none" : 0
 };
 
-const addBread = function(breadSelection) {
-
+module.exports.addBread = function(breadType) {
+    return breadPrices[breadType];
 };

@@ -1,5 +1,6 @@
 "use strict";
 
+const sandwichMaker = require('./SandwichMaker');
 console.log("does this work");
 
 let submit = document.getElementById("submit");
@@ -16,9 +17,10 @@ submit.addEventListener('click', function(){
 });
 
 menu.addEventListener('change', function(){
-    console.log(event.target.value);
-    console.log(event.target.closest('section').id);
+    sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
 });
+
+
 
 
 
