@@ -17,6 +17,10 @@ submit.addEventListener('click', function(){
     output.innerHTML = `${sandwichMaker.getTotal()} ${sandwichOutput(sandwichMaker.getSandwich())}`;
 });
 
+// When you select 'none' you want to deselect the other checkboxes that are checked.
+// If 'none' is selected and another option is checked 'none' needs to be deselected.
+// If 'none' is selected then you need to clear out that categories total out.
+// Only if something is checked should the total be added to the total.
 menu.addEventListener('change', function(){
     sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
 });

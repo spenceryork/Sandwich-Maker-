@@ -18,6 +18,10 @@ submit.addEventListener('click', function(){
     output.innerHTML = `${sandwichMaker.getTotal()} ${sandwichOutput(sandwichMaker.getSandwich())}`;
 });
 
+// When you select 'none' you want to deselect the other checkboxes that are checked.
+// If 'none' is selected and another option is checked 'none' needs to be deselected.
+// If 'none' is selected then you need to clear out that categories total out.
+// Only if something is checked should the total be added to the total.
 menu.addEventListener('change', function(){
     sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
 });
@@ -57,12 +61,31 @@ let sandwich = {
     "veggies" : [],
 };
 
-
+//figure out how to make multiple calls depending on the id
 module.exports.addIngredient = function(id, value) {
-    sandwich[id].push(value);
-    console.log(sandwich);
-    total += bread.addBread(value);
+    if (id === "bread") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += bread.addBread(value);
+    } if (id === "cheese") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += cheese.addCheese(value);
+    } if (id === "condiments") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += condiments.addCondiments(value);
+    } if (id === "meat") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += meat.addMeat(value);       
+    } if (id === "veggies") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += veggies.addVeggies(value);
+    }
     console.log("total", total);
+    return total;
 };
 
 module.exports.getTotal = function() {
@@ -91,17 +114,22 @@ module.exports.addBread = function(breadType) {
 },{}],4:[function(require,module,exports){
 "use strict";
 
+console.log("cheese");
+
 let cheesePrices = {
     "american": 1.00,
     "Pepper Jack": 1.50,
     "swiss": 2.00
 };
 
-const addCheese = function(breadSelection) {
-
+module.exports.addCheese = function(cheeseType) {
+    return cheesePrices[cheeseType];
 };
+
 },{}],5:[function(require,module,exports){
 "use strict";
+
+console.log("condiments");
 
 let condimentPrices = {
     "ketchup": 0.75,
@@ -109,26 +137,32 @@ let condimentPrices = {
     "Mayo": 0.75
 };
 
-const addCondiments = function(breadSelection) {
-
+module.exports.addCondiments = function(condimentType) {
+    return condimentPrices[condimentType];
 };
 },{}],6:[function(require,module,exports){
 "use strict";
 
+console.log("meat");
+
 // Private variable to store the different meat prices. How is it private?
 let meatPrices = { 
-    salami: 0.75,
-    "roast beef": 1.25,
-    "turkey": 2.00
+    "turkey": 0.75,
+    "ham": 1.25,
+    "bacon": 2.00,
+    "none" : 0
 }; //why is one key in quotes but the other isn't?
 
-const addMeat = function(meatSelection) {
-  //code that grabs the correct meat price and returns it
+module.exports.addMeat = function(meatType) {
+    return meatPrices[meatType];
 };
 
-module.exports = { addMeat }; //What exactly is being exported here?
+
+
 },{}],7:[function(require,module,exports){
 "use strict";
+
+console.log("veggies");
 
 let veggiePrices = {
     "peppers": 0.50,
@@ -136,7 +170,8 @@ let veggiePrices = {
     "lettuce": 0.50
 };
 
-const addVeggies = function(breadSelection) {
-
+module.exports.addVeggies = function(veggieType) {
+    return veggiePrices[veggieType];
 };
+
 },{}]},{},[2]);

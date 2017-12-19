@@ -1,11 +1,13 @@
 "use strict";
 
+console.log("condiments");
+
 let condimentPrices = {
     "ketchup": 0.75,
     "mustard": 0.75,
     "Mayo": 0.75
 };
 
-const addCondiments = function(breadSelection) {
-
+module.exports.addCondiments = function(condimentType) {
+    return condimentPrices[condimentType];
 };

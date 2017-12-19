@@ -16,12 +16,31 @@ let sandwich = {
     "veggies" : [],
 };
 
-
+//figure out how to make multiple calls depending on the id
 module.exports.addIngredient = function(id, value) {
-    sandwich[id].push(value);
-    console.log(sandwich);
-    total += bread.addBread(value);
+    if (id === "bread") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += bread.addBread(value);
+    } if (id === "cheese") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += cheese.addCheese(value);
+    } if (id === "condiments") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += condiments.addCondiments(value);
+    } if (id === "meat") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += meat.addMeat(value);       
+    } if (id === "veggies") {
+        sandwich[id].push(value);
+        console.log("event.target.closest('section').id", event.target.closest('section').id);
+        total += veggies.addVeggies(value);
+    }
     console.log("total", total);
+    return total;
 };
 
 module.exports.getTotal = function() {
