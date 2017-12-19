@@ -3,7 +3,7 @@
 let breadPrices = {
     "white": 0.99,
     "wheat": 1.25,
-    "Rye": 1.50,
+    "rye": 1.50,
     "none" : 0
 };
 

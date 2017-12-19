@@ -14,12 +14,24 @@ let menu = document.getElementById("menu");
 
 //Event listner for button
 submit.addEventListener('click', function(){
-    console.log("button clicked");
+    console.log("Submit on total", sandwichMaker.getTotal());
+    output.innerHTML = `${sandwichMaker.getTotal()} ${sandwichOutput(sandwichMaker.getSandwich())}`;
 });
 
 menu.addEventListener('change', function(){
     sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
 });
+
+let sandwichOutput = function (sandwichObject) {
+    let sandwichString = "";
+    for(let ingredient in sandwichObject) {
+        console.log("ingredient", sandwichObject[ingredient]);
+        for (let i = 0; i < sandwichObject[ingredient].length; i++) {
+            sandwichString += `${sandwichObject[ingredient][i]} `;
+        }
+    }
+    return sandwichString;
+};
 
 
 
@@ -37,12 +49,31 @@ let condiments = require("./condiments");
 let meat = require("./meat");
 let total = 0;
 
+let sandwich = {
+    "bread" : [],
+    "meat" : [],
+    "cheese" : [],
+    "condiments" : [],
+    "veggies" : [],
+};
+
 
 module.exports.addIngredient = function(id, value) {
-    console.log(bread.addBread(value), "module is connected");
+    sandwich[id].push(value);
+    console.log(sandwich);
     total += bread.addBread(value);
     console.log("total", total);
 };
+
+module.exports.getTotal = function() {
+    return total;
+};
+
+module.exports.getSandwich = function() {
+    return sandwich;
+};
+
+
 
 },{"./DOMinteraction":1,"./bread":3,"./cheese":4,"./condiments":5,"./meat":6,"./veggies":7}],3:[function(require,module,exports){
 "use strict";
@@ -50,7 +81,7 @@ module.exports.addIngredient = function(id, value) {
 let breadPrices = {
     "white": 0.99,
     "wheat": 1.25,
-    "Rye": 1.50,
+    "rye": 1.50,
     "none" : 0
 };
 
