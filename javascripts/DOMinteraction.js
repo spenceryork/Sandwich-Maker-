@@ -1,6 +1,7 @@
 "use strict";
 
 const sandwichMaker = require('./SandwichMaker');
+const breadPrice = require("./bread");
 console.log("does this work");
 
 let submit = document.getElementById("submit");
@@ -10,6 +11,7 @@ let meat = document.getElementById("meat");
 let cheese = document.getElementById("cheese");
 let veggies = document.getElementById("veggies");
 let menu = document.getElementById("menu");
+let total = 0;
 
 //Event listner for button
 submit.addEventListener('click', function(){
@@ -22,7 +24,15 @@ submit.addEventListener('click', function(){
 // If 'none' is selected then you need to clear out that categories total out.
 // Only if something is checked should the total be added to the total.
 menu.addEventListener('change', function(){
-    sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
+    if (event.target.checked === true) {
+        sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
+    } 
+    // else {
+    //    let total = sandwichMaker.addIngredient();
+    //    total - breadPrice.addBread(event.target.value);
+    //    return total;
+    
+    console.log("event.target.value", event.target);
 });
 
 let sandwichOutput = function (sandwichObject) {

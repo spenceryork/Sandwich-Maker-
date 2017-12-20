@@ -2,6 +2,7 @@
 "use strict";
 
 const sandwichMaker = require('./SandwichMaker');
+const breadPrice = require("./bread");
 console.log("does this work");
 
 let submit = document.getElementById("submit");
@@ -11,6 +12,7 @@ let meat = document.getElementById("meat");
 let cheese = document.getElementById("cheese");
 let veggies = document.getElementById("veggies");
 let menu = document.getElementById("menu");
+let total = 0;
 
 //Event listner for button
 submit.addEventListener('click', function(){
@@ -23,7 +25,15 @@ submit.addEventListener('click', function(){
 // If 'none' is selected then you need to clear out that categories total out.
 // Only if something is checked should the total be added to the total.
 menu.addEventListener('change', function(){
-    sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
+    if (event.target.checked === true) {
+        sandwichMaker.addIngredient(event.target.closest('section').id, event.target.value);
+    } 
+    // else {
+    //    let total = sandwichMaker.addIngredient();
+    //    total - breadPrice.addBread(event.target.value);
+    //    return total;
+    
+    console.log("event.target.value", event.target);
 });
 
 let sandwichOutput = function (sandwichObject) {
@@ -42,7 +52,7 @@ let sandwichOutput = function (sandwichObject) {
 
 
 
-},{"./SandwichMaker":2}],2:[function(require,module,exports){
+},{"./SandwichMaker":2,"./bread":3}],2:[function(require,module,exports){
 "use strict";
 
 require("./DOMinteraction");
@@ -61,32 +71,50 @@ let sandwich = {
     "veggies" : [],
 };
 
-//figure out how to make multiple calls depending on the id
 module.exports.addIngredient = function(id, value) {
     if (id === "bread") {
         sandwich[id].push(value);
-        console.log("event.target.closest('section').id", event.target.closest('section').id);
         total += bread.addBread(value);
     } if (id === "cheese") {
         sandwich[id].push(value);
-        console.log("event.target.closest('section').id", event.target.closest('section').id);
         total += cheese.addCheese(value);
     } if (id === "condiments") {
         sandwich[id].push(value);
-        console.log("event.target.closest('section').id", event.target.closest('section').id);
         total += condiments.addCondiments(value);
     } if (id === "meat") {
         sandwich[id].push(value);
-        console.log("event.target.closest('section').id", event.target.closest('section').id);
         total += meat.addMeat(value);       
     } if (id === "veggies") {
         sandwich[id].push(value);
-        console.log("event.target.closest('section').id", event.target.closest('section').id);
         total += veggies.addVeggies(value);
     }
     console.log("total", total);
-    return total;
+    // return total;
 };
+
+//Example of the same logic above but as a switch statement.
+// module.exports.addIngredient = function(id, value) {
+//     sandwich[id].push(value);
+//     switch(id) {
+//         case "bread":
+//         total += bread.addBread(value);
+//         break;
+//         case "cheese":
+//         total += cheese.addCheese(value);
+//         break;
+//         case "condiments":
+//         total += condiments.addCondiments(value);
+//         break;
+//         case "meat":
+//         total += meat.addMeat(value); 
+//         break;
+//         case "veggies":
+//         total += veggies.addVeggies(value);
+//         break;
+//     }
+//     return total;
+// };
+
 
 module.exports.getTotal = function() {
     return total;
@@ -118,7 +146,7 @@ console.log("cheese");
 
 let cheesePrices = {
     "american": 1.00,
-    "Pepper Jack": 1.50,
+    "pepper jack": 1.50,
     "swiss": 2.00
 };
 
@@ -134,7 +162,8 @@ console.log("condiments");
 let condimentPrices = {
     "ketchup": 0.75,
     "mustard": 0.75,
-    "Mayo": 0.75
+    "mayo": 0.75,
+    "none": 0
 };
 
 module.exports.addCondiments = function(condimentType) {
@@ -167,7 +196,8 @@ console.log("veggies");
 let veggiePrices = {
     "peppers": 0.50,
     "onions": 0.75,
-    "lettuce": 0.50
+    "lettuce": 0.50,
+    "none" : 0
 };
 
 module.exports.addVeggies = function(veggieType) {
